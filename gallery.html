@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photo Gallery Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+    }
+    h1 {
+      margin-top: 20px;
+    }
+    input[type="file"] {
+      margin: 20px 0;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    .gallery img {
+      max-width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Upload Your Photos</h1>
+  <input type="file" id="imageUpload" accept="image/*" multiple>
+  <div class="gallery" id="gallery"></div>
+
+  <script>
+    const uploadInput = document.getElementById('imageUpload');
+    const gallery = document.getElementById('gallery');
+
+    uploadInput.addEventListener('change', function() {
+      const files = Array.from(uploadInput.files);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          gallery.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  </script>
+
+</body>
+</html>
